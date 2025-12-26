@@ -1,3 +1,6 @@
+//watch -n 1 'top -b -n 1 -p $(pgrep -n stertac)'	 ->tym obserwujemy zmiany pamieci przy czyszczeniu
+//gcc sterta.c -o stertac -DCLIWERSJA=2 		 ->tym kompilujemy 1-3 to wersje
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
@@ -26,6 +29,10 @@ void main()
 			{
 				#if WERSJA == STOSTAB
 					float tablica[TABLICA_10];
+				#elif WERSJA == STERTAWSK
+					float* tablica = create_1d_array_re(TABLICA_10);
+				#elif WERSJA == STERTARETURN
+				#endif
 					wypelnij_recznie_tablice(tablica);
 					zsumuj_tablice(tablica);
 					sumuj_wszystkie_dodatnie(tablica);
@@ -33,22 +40,32 @@ void main()
 					sumuj_wieksze_od_k(tablica);
 					sumuj_indeksy_parzyste(tablica);
 					sumuj_indeksy_nieparzyste(tablica);
-				#elif WERSJA == STOSWSK
+				#if WERSJA == STERTAWSK
+					free_1d_array_re(tablica, TABLICA_10);
+					//tu by mozna dac wypisanie tego returna iile column zostalo wyczysczonych ale tbw
 				#elif WERSJA == STERTARETURN
 				#endif
 			if((int)(function*10)!=10){break;}
 			}
 			case 12:
 			{
-				#if WERSJA == STOSTAB
 					int m, n, k1, k2 = 0; 
 					wprowadz_zmienne(&m, &n, &k1, &k2, function);
 					printf("m = %d n = %d k1 = %d k2 = %d <-k1 i k2 odpowiednio pomniejszone bo kompe liczy od 0", m, n, k1, k2);
+				#if WERSJA == STOSTAB
 					float tablica2d[m][n];
 					float temp_tablica[m][n];//mozna by bylo kopiowac pojedyncze kolumny
+				#elif WERSJA == STERTAWSK
+					float** tablica2d = create_2d_array_re(m, n);
+					float** temp_tablica = create_2d_array_re(m, n);
+				#elif WERSJA == STERTARETURN
+				#endif
 					wypelnij_losowo_tablice(k1, k2, m, n, tablica2d, function);
 					zamiana_miejscami(k1, k2, m, n, tablica2d, temp_tablica);
-				#elif WERSJA == STOSWSK
+				#if WERSJA == STERTAWSK
+					enterek("nacisnij ENTER by zwolnic pamiec");
+					free_2d_array_re(tablica2d, &m, &n);
+					free_2d_array_re(temp_tablica, &m, &n);
 				#elif WERSJA == STERTARETURN
 				#endif
 			break;
@@ -58,6 +75,10 @@ void main()
 			{
 				#if WERSJA == STOSTAB
 					float tablica[TABLICA_10];
+				#elif WERSJA == STERTAWSK
+					float* tablica = create_1d_array_re(TABLICA_10);
+				#elif WERSJA == STERTARETURN
+				#endif
 					wypelnij_recznie_tablice(tablica);
 					ziloczynuj_tablice(tablica);
 					ziloczynuj_parzyste(tablica);
@@ -65,20 +86,31 @@ void main()
 					ziloczynuj_dodatnie(tablica);
 					ziloczynuj_ujemne(tablica);
 					ziloczynuj_wieksze_od_k(tablica);
-				#elif WERSJA == STOSWSK
+				#if WERSJA == STERTAWSK
+					free_1d_array_re(tablica, TABLICA_10);
+					//tu by mozna dac wypisanie tego returna iile column zostalo wyczysczonych ale tbw
 				#elif WERSJA == STERTARETURN
 				#endif
 			if((int)(function*10)!=20){break;}
 			}
 			case 22:
 			{
-				#if WERSJA == STOSTAB
 					int n = wprowadz_zmienna_n();
+					int m = n;
+				#if WERSJA == STOSTAB
 					float tablica2d[n][n];
 					float temp_tablica[n][n];//mozna by bylo kopiowac pojedyncze kolumny
+				#elif WERSJA == STERTAWSK
+					float** tablica2d = create_2d_array_re(n, n);
+					float** temp_tablica = create_2d_array_re(n, n);
+				#elif WERSJA == STERTARETURN
+				#endif
 					wypelnij_losowo_tablice(0, 0, n, n, tablica2d, function);
 					zamien_miejscami_przekatne(n, n, tablica2d,temp_tablica);
-				#elif WERSJA == STOSWSK
+				#if WERSJA == STERTAWSK
+					enterek("nacisnij ENTER by zwolnic pamiec");
+					free_2d_array_re(tablica2d, &m, &n);
+					free_2d_array_re(temp_tablica, &m, &n);
 				#elif WERSJA == STERTARETURN
 				#endif
 			break;
@@ -88,26 +120,41 @@ void main()
 			{
 				#if WERSJA == STOSTAB
 					float tablica[TABLICA_10];
+				#elif WERSJA == STERTAWSK
+					float* tablica = create_1d_array_re(TABLICA_10);
+				#elif WERSJA == STERTARETURN
+				#endif
 					wypelnij_recznie_tablice(tablica);
 					srednia_parzystych(tablica);
 					srednia_nieparzystych(tablica);
 					srednia_dodatnich(tablica);
 					srednia_wiekszych_od_k(tablica);
-				#elif WERSJA == STOSWSK
+				#if WERSJA == STERTAWSK
+					free_1d_array_re(tablica, TABLICA_10);
+					//tu by mozna dac wypisanie tego returna iile column zostalo wyczysczonych ale tbw
 				#elif WERSJA == STERTARETURN
 				#endif
 			if((int)(function*10)!=30){break;}
 			}
 			case 32:
 			{
-				#if WERSJA == STOSTAB
 					int m, n, k1, k2 = 0; 
 					wprowadz_zmienne(&m, &n, &k1, &k2, function);
+					m=n; //dirty fix ale co mi zrobicie?xD
+				#if WERSJA == STOSTAB
 					float tablica2d[n][n];
 					float temp_tablica[n][n];//mozna by bylo kopiowac pojedyncze kolumny
+				#elif WERSJA == STERTAWSK
+					float** tablica2d = create_2d_array_re(m, n);
+					float** temp_tablica = create_2d_array_re(m, n);
+				#elif WERSJA == STERTARETURN
+				#endif
 					wypelnij_losowo_tablice(0, 0, n, n, tablica2d, function);
 					kolumna_z_maksymalna_srednia(n, n, k1, k2, tablica2d, temp_tablica);
-				#elif WERSJA == STOSWSK
+				#if WERSJA == STERTAWSK
+					enterek("nacisnij ENTER by zwolnic pamiec");
+					free_2d_array_re(tablica2d, &m, &n);
+					free_2d_array_re(temp_tablica, &m, &n);
 				#elif WERSJA == STERTARETURN
 				#endif
 			break;
@@ -115,7 +162,8 @@ void main()
 		}
 	}
 }
-void kolumna_z_maksymalna_srednia(int m, int n, int k1, int k2, float tablica2d[n][n], float temp_tablica[n][n])
+
+void kolumna_z_maksymalna_srednia(int m, int n, int k1, int k2, TAB_PARAM(tablica2d, m, n), TAB_PARAM(temp_tablica, m, n))
 {
 	float srednie[n];
 	float najwieksza_srednia=0.0;
@@ -175,6 +223,42 @@ void kolumna_z_maksymalna_srednia(int m, int n, int k1, int k2, float tablica2d[
 	printf("\n\n");
 }
 
+void zamien_miejscami_przekatne(int m, int n, TAB_PARAM(tablica2d, m, n), TAB_PARAM(temp_tablica, m, n))
+{
+	printf("\nzamienione przekatne:\n");
+	//kopioowanie tablicy
+	for(int i=0; i<m; i++)
+	{
+		for(int j=0; j<n; j++)
+		{
+			temp_tablica[i][j]=tablica2d[i][j]; 
+		}
+	}
+	//zamiana przekatnych
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			if(i==j){tablica2d[i][j]=temp_tablica[i][(n-1)-j];}//temp_tablica[(n-1)-i][(n-1)-j];}
+			if(j==(n-1)-i){tablica2d[i][j]=temp_tablica[i][i];}
+		}
+	}
+	//rysowanie zamienionej tablicy
+	for(int i=0; i<n; i++)
+	{
+		for(int j=0; j<n; j++)
+		{
+			if(i==j && n % 2 !=0&& i==n/2){printf("\x1b[34m");}
+			else if(i==j){printf("\x1b[31m");}
+			else if(j==(n-1)-i){printf("\x1b[32m");}
+			else {printf("\x1b[0m");}
+			printf("%.1f ", tablica2d[i][j]);
+			if(tablica2d[i][j]<10.0){printf(" ");}
+			if(j==n-1){printf("\n");}
+		}
+	}
+	printf("\x1b[0m\n");
+}
 void srednia_wiekszych_od_k(float tablica[TABLICA_10])
 {
 	float temp=0.0;
@@ -276,43 +360,6 @@ void srednia_parzystych(float tablica[TABLICA_10])
 	}
 	temp=temp/liczba_parzystych;
 	printf("srednia parzystych komurek: %.1f\n",temp);
-}
-
-void zamien_miejscami_przekatne(int m, int n, float tablica2d[n][n],float temp_tablica[n][n])
-{
-	printf("\nzamienione przekatne:\n");
-	//kopioowanie tablicy
-	for(int i=0; i<m; i++)
-	{
-		for(int j=0; j<n; j++)
-		{
-			temp_tablica[i][j]=tablica2d[i][j]; 
-		}
-	}
-	//zamiana przekatnych
-	for(int i=0;i<n;i++)
-	{
-		for(int j=0;j<n;j++)
-		{
-			if(i==j){tablica2d[i][j]=temp_tablica[i][(n-1)-j];}//temp_tablica[(n-1)-i][(n-1)-j];}
-			if(j==(n-1)-i){tablica2d[i][j]=temp_tablica[i][i];}
-		}
-	}
-	//rysowanie zamienionej tablicy
-	for(int i=0; i<n; i++)
-	{
-		for(int j=0; j<n; j++)
-		{
-			if(i==j && n % 2 !=0&& i==n/2){printf("\x1b[34m");}
-			else if(i==j){printf("\x1b[31m");}
-			else if(j==(n-1)-i){printf("\x1b[32m");}
-			else {printf("\x1b[0m");}
-			printf("%.1f ", tablica2d[i][j]);
-			if(tablica2d[i][j]<10.0){printf(" ");}
-			if(j==n-1){printf("\n");}
-		}
-	}
-	printf("\x1b[0m\n");
 }
 
 void ziloczynuj_wieksze_od_k(float tablica[TABLICA_10])
@@ -474,8 +521,7 @@ int wprowadz_zmienna_n()
 	scanf("%i",&n);
 	return n;
 }
-
-void wypelnij_losowo_tablice(int k1, int k2, int m, int n, float tablica2d[m][n], float function)
+void wypelnij_losowo_tablice(int k1, int k2, int m, int n, TAB_PARAM(tablica2d, m, n), float function)
 {
 	printf("\nwylosowana tablica:\n");
 
@@ -510,7 +556,7 @@ void wypelnij_losowo_tablice(int k1, int k2, int m, int n, float tablica2d[m][n]
 	}
 }
 
-void zamiana_miejscami(int k1, int k2, int m, int n, float tablica2d[m][n], float temp_tablica[m][n])
+void zamiana_miejscami(int k1, int k2, int m, int n, TAB_PARAM(tablica2d, m, n), TAB_PARAM(temp_tablica, m, n))
 {
 	printf("\nzamienione kolumny %d z %d:\n",k1,k2);
 	//kopioowanie tablicy
@@ -615,7 +661,7 @@ float* create_1d_array_re(int cols)
 	wsk = (float*)malloc(cols*sizeof(float));
 	return wsk;
 }
-int* free_1d_array_re(float* arr, int* cols) // funkcja zeruje cols
+int free_1d_array_re(float* arr, int cols) // funkcja zeruje cols
 {
 	free(arr);
 	return cols;
@@ -641,6 +687,7 @@ float** create_2d_array_re(int rows, int cols)
 }
 int free_2d_array_re(float** arr, int* rows, int* cols) // funkcja zeruje rows i cols
 {
+	//printf("rows: %d, cols: %d", *rows, *cols);//debugowalem ale chyba jest git
 	for (int i = 0;i < *rows;i++)
 	{
 		free(arr[i]);
@@ -667,4 +714,13 @@ void free_2d_array(float*** arr, int* rows, int* cols) // funkcja zeruje rows i 
 
 	free(*arr);
 	*arr = NULL;
+}
+
+void enterek(char tekst[]) //tego uzywam zeby sobie fizycznie obserwowac przerwe miedzy zapelnieniem pamieci a jej zwolnieniem
+{
+	if(tekst=="" || tekst == "\n"){tekst="nacisnij ENTER klawisz by kontynuowac\n";}
+	puts(tekst);
+	//while ((getchar()) != '\n');
+	char foo;	
+	scanf("%c",&foo);scanf("%c",&foo);//bardzo zle rozwiazanie ale tu akurat dziala xD
 }
