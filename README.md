@@ -7,3 +7,4 @@ watch -n 1 'top -b -n 1 -p $(pgrep -n stertac)'	 ->tym obserwujemy zmiany pamiec
 wprowadz numer przykladu: (0=zakonczenie programu, 1-3=wersja zadania, [1-3].[1-2]=podzadania)
 np. 3.2 -> wywoluje podprogram 3.2
 # przykladowy output
+![image](https://raw.githubusercontent.com/karolgotow/arrays-pointers-training/refs/heads/main/img/output.png)
