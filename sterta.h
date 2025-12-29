@@ -1,3 +1,4 @@
+#include "wersjowanie.h"
 #define TABLICA_1 1
 #define TABLICA_10 10
 #define MOJ_RAND_MAX 99
@@ -9,11 +10,25 @@
 //int k1=0;
 //int k2=0;
 
+#if WERSJA == STOSTAB
+	/* VLA – wskaźnik na tablicę n‑elementową */
+	#define TAB_PARAM(name,m,n) float name[m][n]
+#elif WERSJA == STERTAWSK
+	#define TAB_PARAM(name, m, n) float **name
+#elif WERSJA == STERTARETURN
+	/* double‑pointer */
+	#define TAB_PARAM(name,m,n) float **name
+#endif
+
+void enterek();
+
 void wypelnij_recznie_tablice();
 float wypelnij_tablice();
 void zsumuj_tablice();
-void wypelnij_losowo_tablice(int k1, int k2, int m, int n, float tablica2d[m][n], float function);
-void zamiana_miejscami(int k1, int k2, int m, int n, float tablica2d[m][n], float temp_tablica[m][n]);
+
+	void wypelnij_losowo_tablice(int k1, int k2, int m, int n,  TAB_PARAM(tablica2d, m, n), float function);
+	void zamiana_miejscami(int k1, int k2, int m, int n, TAB_PARAM(tablica2d, m, n), TAB_PARAM(temp_tablica, m, n));
+
 void sumuj_wszystkie_dodatnie();
 void sumuj_wszystkie_ujemne();
 void sumuj_wieksze_od_k();
@@ -38,10 +53,10 @@ void srednia_dodatnich();
 void srednia_wiekszych_od_k();
 
 float* create_1d_array_re(int cols);
-int* free_1d_array_re(float* arr, int* cols); // funkcja zeruje cols
+int free_1d_array_re(float* arr, int cols); // funkcja zeruje cols
 
 void create_1d_array(float** arr, int cols);
-void free_1d_array(float** arr, int* cols); // funkcja zeruje cols
+void free_1d_array(float** arr, int cols); // funkcja zeruje cols
 
 float** create_2d_array_re(int rows, int cols);
 int free_2d_array_re(float** arr, int* rows, int* cols); // funkcja zeruje rows i cols
